@@ -1,0 +1,63 @@
+# ------------------------------------
+# 1. GENERATED/OUTPUT FILES
+# ------------------------------------
+# Ignore all PDF files anywhere in the repository (Your specific request)
+*.pdf
+
+# Python bytecode files
+*.pyc
+__pycache__/
+
+# Distribution / Packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+
+# Logs and temporary files
+*.log
+*.tmp
+.DS_Store
+
+# ------------------------------------
+# 2. DEPENDENCIES / ENVIRONMENTS
+# ------------------------------------
+# Python Virtual Environments
+# (You only need one of these, depending on what you use)
+venv/
+.venv/
+env/
+.env/
+.tox/
+/htmlcov/
+# Poetry/PDM lock files (It's often recommended to keep these, but ignoring them is common too)
+# poetry.lock
+# pdm.lock
+
+# Configuration for environment variables (contains secrets)
+.env
+.flaskenv
+
+# ------------------------------------
+# 3. IDE / EDITOR SPECIFIC FILES
+# ------------------------------------
+# macOS system files
+.DS_Store
+
+# VS Code
+.vscode/*
+!/.vscode/settings.json    # Optional: You might want to track shared settings
+!/.vscode/tasks.json       # Optional: You might want to track shared tasks
+!/.vscode/launch.json      # Optional: You might want to track shared launch configs
+
+# JetBrains IDEs (PyCharm, IntelliJ, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim/Nano swap files
+*.swp

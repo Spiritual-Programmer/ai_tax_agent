@@ -12,7 +12,6 @@ def extract_regex_group(text: str, pattern: str) -> Optional[str]:
 def clean_and_convert_to_float(amount_str: str) -> Optional[float]:
     if not amount_str:
         return None
-    
     cleaned = amount_str.replace(',', '').replace('$', '').strip()
     
     try:
@@ -64,6 +63,8 @@ def extract_employee_data(markdown: str) -> Dict[str, Any]:
         
     # Name (Handled by complex helper)
     data.update(_extract_employee_name(markdown))
+    print("DEBUG: Extracted address:", address)
+
     return {'employee': data}
 
 
@@ -131,11 +132,20 @@ def extract_additional_info(markdown: str) -> Dict[str, Any]:
     
     return {'additional_info': data}
 
+def parse_w2(pdf_file: str or Any, debug: bool = False) -> Dict[str, Any]:
+    """
+    pdf_file: str filename OR file-like object (Streamlit UploadedFile)
+    """
+    import fitz  # PyMuPDF
 
-# --- Main Orchestrator Function (Former main_parser.py) ---
-
-def parse_w2(pdf_file: str, debug: bool = False) -> Dict[str, Any]:
-    markdown = pymupdf4llm.to_markdown(pdf_file)
+    # If str, treat as path
+    if isinstance(pdf_file, str):
+        markdown = pymupdf4llm.to_markdown(pdf_file)
+    else:
+        # UploadedFile or BytesIO
+        pdf_bytes = pdf_file.read()
+        doc = fitz.open(stream=pdf_bytes, filetype="pdf")  # Correct usage
+        markdown = pymupdf4llm.to_markdown(doc)
     
     if debug:
         print("\n" + "="*60)
@@ -160,8 +170,3 @@ def parse_w2(pdf_file: str, debug: bool = False) -> Dict[str, Any]:
     }
     
     return final_w2
-
-text = parse_w2("./backend/w2.pdf")
-
-print(text)
-    

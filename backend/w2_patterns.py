@@ -1,6 +1,6 @@
 # --- Employee Information ---
 SSN_PATTERN = r'Employee.*?social\s*security\s*number.*?(\d{3}\s*-\s*\d{2}\s*-\s*\d{4})'
-ADDRESS_PATTERN = r'Employee.*?address.*?\*\*([^*]+)\*\*[\s\S]*?Employer\s*identification\s*number'
+ADDRESS_PATTERN =  r"\*\*f\*\*Employee's address and ZIP code\s+\*\*[^\*]+\*\*\s+\*\*[^\*]+\*\*\s+\*\*([^\*]+)\*\*"
 # Name: Primary match requires two capturing groups for first/last name near an address
 NAME_PRIMARY_PATTERN = r'\*\*([A-Z][a-z]+)\*\*[^*]*\*\*([A-Z][a-z]+)\*\*[^*]*\*\*\d+\s+\w+\s+St'
 # Name: Fallback patterns for searching after the address/ZIP label
