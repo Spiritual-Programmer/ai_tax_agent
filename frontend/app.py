@@ -140,3 +140,19 @@ if st.button("Continue"):
     gross_income = calculate_taxes(w2_data, taxpayer_profile, year)
     st.write(gross_income)
     fill_1040_pdf(FORM_1040_TEMPLATE_PATH, w2_data,taxpayer_profile)
+
+    # Assuming you have collected all data into w2_data and taxpayer_profile
+
+    # 1. Generate the filled PDF bytes
+    filled_pdf_data = fill_1040_pdf(FORM_1040_TEMPLATE_PATH, w2_data, taxpayer_profile)
+
+    if filled_pdf_data:
+        # 2. Use Streamlit's download button
+        st.download_button(
+            label="📥 Download Filled Form 1040",
+            data=filled_pdf_data,
+            file_name="filled_form_1040.pdf",
+            mime="application/pdf"
+        )
+    else:
+        st.error("Form generation failed. Check the logs for the specific error details printed by fill_1040_pdf.")

@@ -1,4 +1,5 @@
 from pypdf import PdfReader, PdfWriter
+import io # for in-memory handling
 
 def discover_pdf_field_info(pdf_path):
     reader = PdfReader(pdf_path)
@@ -74,7 +75,18 @@ def fill_1040_pdf (file_path, w2_data, taxpayer_profile):
     writer.update_page_form_field_values(writer.pages[0],field_data)
     writer.update_page_form_field_values(writer.pages[1],field_data)
     
-    with open('output.pdf', 'wb') as f:
-        writer.write(f)
+    # --- START DOWNLOADABLE FILE LOGIC ---
+    # 1. Create an in-memory buffer (BytesIO)
+    output_buffer = io.BytesIO()
+    
+    # 2. Write the PDF content directly to the buffer
+    writer.write(output_buffer)
+    
+    # 3. Get the binary content and return it
+    return output_buffer.getvalue()
+    # --- END DOWNLOADABLE FILE LOGIC ---
+
+    # with open('output.pdf', 'wb') as f:
+    #     writer.write(f)
 
 #discover_pdf_field_info('./backend/form_1040_template.pdf')
