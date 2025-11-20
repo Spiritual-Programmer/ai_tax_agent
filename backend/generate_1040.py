@@ -77,4 +77,4 @@ def fill_1040_pdf (file_path, w2_data, taxpayer_profile):
     with open('output.pdf', 'wb') as f:
         writer.write(f)
 
-discover_pdf_field_info('./backend/form_1040_template.pdf')
+#discover_pdf_field_info('./backend/form_1040_template.pdf')

@@ -7,6 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from backend.extract_w2 import parse_w2
 from backend.calculate_taxes import calculate_taxes
 from backend.generate_1040 import fill_1040_pdf
+from config import FORM_1040_TEMPLATE_PATH
 
 def add_additional_person(person_type, unique_key):
     # Add dependent or spouse information
@@ -138,4 +139,4 @@ if st.button("Continue"):
     year = "2024"
     gross_income = calculate_taxes(w2_data, taxpayer_profile, year)
     st.write(gross_income)
-    fill_1040_pdf('./backend/form_1040_template.pdf',w2_data,taxpayer_profile)
+    fill_1040_pdf(FORM_1040_TEMPLATE_PATH, w2_data,taxpayer_profile)
