@@ -6,7 +6,6 @@ with open("./backend/tax_config.json", 'r') as file:
 def calculate_taxes(w2_data, taxpayer_profile, year):
     year_data = tax_data[year]
     standard_deduction = year_data["standard_deductions"]
-
     # W2 Data
     wages = w2_data["wages_and_taxes"]["box_1_wages"] 
     federal_tax_witheld = w2_data["wages_and_taxes"]["box_2_federal_tax_withheld"]

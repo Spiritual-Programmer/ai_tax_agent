@@ -7,6 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from backend.extract_w2 import parse_w2
 from backend.calculate_taxes import calculate_taxes
 from backend.generate_1040 import fill_1040_pdf
+from backend.extract_1099_int import extract_1099_int
 from config import FORM_1040_TEMPLATE_PATH
 
 def add_additional_person(person_type, unique_key):
@@ -66,6 +67,12 @@ uploaded_w2_file = st.file_uploader(
     "Upload your W-2 PDF",
     type=["pdf"],
     accept_multiple_files=False
+)
+
+uploaded_1099_int = st.file_uploader(
+    "Upload any 1099-INTs (you can upload multiple)",
+    type=["pdf"],
+    accept_multiple_files=True
 )
 
 filing_status = st.selectbox(
@@ -140,6 +147,11 @@ if st.button("Continue"):
     gross_income = calculate_taxes(w2_data, taxpayer_profile, year)
     st.write(gross_income)
     fill_1040_pdf(FORM_1040_TEMPLATE_PATH, w2_data,taxpayer_profile)
+
+    # 1099-INT
+    form_1099_int_data = extract_1099_int(uploaded_1099_int)
+    st.subheader("Parsed 1099-INT")
+    st.json(form_1099_int_data)
 
     # Assuming you have collected all data into w2_data and taxpayer_profile
 

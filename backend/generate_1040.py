@@ -23,6 +23,7 @@ def discover_pdf_field_info(pdf_path):
 def fill_1040_pdf (file_path, w2_data, taxpayer_profile):
     writer = PdfWriter(clone_from=file_path)
     
+    # Fill name & ssn
     field_data = {
         'topmostSubform[0].Page1[0].f1_04[0]': w2_data["employee"]["first_name"],
         'topmostSubform[0].Page1[0].f1_05[0]': w2_data["employee"]["last_name"],
@@ -69,24 +70,29 @@ def fill_1040_pdf (file_path, w2_data, taxpayer_profile):
     # Dependents
     # if taxpayer_profile["has_dependents"] == "yes":
     #     for 
+    
+    # Income Section
+    field_data = {
+        'topmostSubform[0].Page1[0].f1_32[0]': w2_data["wages_and_taxes"]["box_1_wages"],
+    }
 
 
 
     writer.update_page_form_field_values(writer.pages[0],field_data)
     writer.update_page_form_field_values(writer.pages[1],field_data)
     
-    # --- START DOWNLOADABLE FILE LOGIC ---
-    # 1. Create an in-memory buffer (BytesIO)
-    output_buffer = io.BytesIO()
+    # # --- START DOWNLOADABLE FILE LOGIC ---
+    # # 1. Create an in-memory buffer (BytesIO)
+    # output_buffer = io.BytesIO()
     
-    # 2. Write the PDF content directly to the buffer
-    writer.write(output_buffer)
+    # # 2. Write the PDF content directly to the buffer
+    # writer.write(output_buffer)
     
-    # 3. Get the binary content and return it
-    return output_buffer.getvalue()
-    # --- END DOWNLOADABLE FILE LOGIC ---
+    # # 3. Get the binary content and return it
+    # return output_buffer.getvalue()
+    # # --- END DOWNLOADABLE FILE LOGIC ---
 
-    # with open('output.pdf', 'wb') as f:
-    #     writer.write(f)
+    with open('output.pdf', 'wb') as f:
+        writer.write(f)
 
 #discover_pdf_field_info('./backend/form_1040_template.pdf')
